@@ -1,6 +1,10 @@
 package com.example.sb_korea;
 
 import com.alibaba.fastjson.JSON;
+import com.example.sb_korea.mapper.UserMapper;
+import com.example.sb_korea.utils.BeanUtil;
+import com.example.sb_korea.vo.UserDTO;
+import com.example.sb_korea.vo.UserVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +22,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -94,6 +101,28 @@ class SbKoreaApplicationTests {
     @Test
     public void setPaperNameWindow(){
         MvcResult mvcResult = this.doFrom("/my", "", new LinkedMultiValueMap<>());
+        System.err.println();
+    }
+
+    @Autowired
+    private UserMapper mapper;
+
+    @Test
+    public void mapStruct(){
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setName("wanghao");
+        userDTO.setAge("1");
+        userDTO.setTime("2021-12-21 10:00:00");
+
+        List<UserDTO> dtos =new ArrayList<>();
+        dtos.add(userDTO);
+        dtos.add(BeanUtil.deepClone(userDTO));
+
+        List<UserVO> userVOS = mapper.toVO(dtos);
+
+        List<UserVO> userVOS2 = BeanUtil.deepClone(userVOS);
+
         System.err.println();
     }
 
