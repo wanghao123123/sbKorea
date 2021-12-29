@@ -1,5 +1,6 @@
 package com.example.sb_korea.config;
 
+import com.example.sb_korea.utils.SpringContextUtils;
 import org.apache.el.util.ReflectionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +24,8 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if ("myController".equals(beanName)) {
-            Class<?> aClass = bean.getClass();
-            System.err.println();
-            ReflectionUtils.doWithLocalFields(aClass,a->{
-                System.err.println(a.getName());});
-//            ReflectionUtils.doWithFields(bean.getClass(), a -> {
-//                Object name = a.get("name");
-//                String chars="hao.wong";
-//                a.set(name,chars);
-//                System.err.println(a.get("name"));
-//                System.err.println(a.getName());
-//            });
+        if ("SpringContextUtils".equals(beanName)) {
+            logger.info(bean.toString());
         }
 
         return bean;

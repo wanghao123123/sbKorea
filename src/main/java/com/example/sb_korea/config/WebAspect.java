@@ -1,11 +1,16 @@
 package com.example.sb_korea.config;
 
+import com.example.sb_korea.utils.SpringContextUtils;
+import com.example.sb_korea.vo.UserDTO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -23,6 +28,9 @@ import java.util.Arrays;
 public class WebAspect {
     private final Logger logger = LoggerFactory.getLogger(WebAspect.class);
 
+//    @Autowired
+//    private SpringContextUtils springContextUtils;
+
     @Pointcut("execution(public * com.example.sb_korea.controller.*.*(..))")//切入点描述 这个是controller包的切入点
     public void controllerLog(){}//签名，可以理解成这个切入点的一个名称
 
@@ -32,6 +40,7 @@ public class WebAspect {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();//这个RequestContextHolder是Springmvc提供来获得请求的东西
         HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
 
+        SpringContextUtils.publishEvent(new UserDTO());
         // 记录下请求内容
         logger.info("################URL : " + request.getRequestURL().toString());
         logger.info("################HTTP_METHOD : " + request.getMethod());
