@@ -1,14 +1,18 @@
 package com.example.sb_korea.config;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.sb_korea.utils.JSONUtils;
 import javafx.util.Pair;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author hao.wong
@@ -25,13 +29,27 @@ public class Test {
         LocalDate of = LocalDate.of(localDate.getYear(), localDate.getMonth(), 1);
         System.err.println(of.format(YYYY_MM));
         JSONObject.toJSONString(null);
-//        KoiPeriodsConfVO koiPeriodsConfVO = first.get();
-//        Conditions.expectFalse(koiPeriodsConfVO.getPrizes().size() < 2, CmbErrors.OPERATING_ERROR);
-//        //设置开奖结束时间  【月末】
-//        Pair<LocalDateTime, LocalDateTime> minDayAndMaxDay =
-//                DateUtils.monthMinDayAndMaxDay(koiPeriodsConfVO.getYearMonths());
-//        koiPeriodsConfVO.setPrizesEndTime(minDayAndMaxDay.getValue().format(DateUtils.YYYY_MM_DD));
-//        return koiPeriodsConfVO;
+//        ROUND_HALF_UP
+        BigDecimal bigDecimal = new BigDecimal("998").divide(new BigDecimal("3"),0, RoundingMode.CEILING);
+
+        System.err.println(bigDecimal);
+
+        String json="{\n" +
+                "    \"a\":{\n" +
+                "        \"b\":{\n" +
+                "            \"c\":{\n" +
+                "                \"d\":12\n" +
+                "            }\n" +
+                "        }\n" +
+                "    }\n" +
+                "}";
+
+
+        System.err.println();
+
+        Integer parse1 = JSONUtils.parse("a.b.c.d", json, Integer.class);
+//        System.err.println();
+
     }
 
 

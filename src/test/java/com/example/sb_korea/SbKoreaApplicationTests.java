@@ -5,6 +5,11 @@ import com.example.sb_korea.mapper.UserMapper;
 import com.example.sb_korea.utils.BeanUtil;
 import com.example.sb_korea.vo.UserDTO;
 import com.example.sb_korea.vo.UserVO;
+import com.power.common.enums.HttpCodeEnum;
+import com.power.doc.builder.HtmlApiDocBuilder;
+import com.power.doc.constants.DocGlobalConstants;
+import com.power.doc.model.ApiConfig;
+import com.power.doc.model.ApiErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +29,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -118,11 +124,8 @@ class SbKoreaApplicationTests {
         List<UserDTO> dtos =new ArrayList<>();
         dtos.add(userDTO);
         dtos.add(BeanUtil.deepClone(userDTO));
-
         List<UserVO> userVOS = mapper.toVO(dtos);
-
         List<UserVO> userVOS2 = BeanUtil.deepClone(userVOS);
-
         System.err.println();
     }
 

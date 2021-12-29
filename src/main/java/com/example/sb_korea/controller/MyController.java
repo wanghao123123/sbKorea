@@ -1,5 +1,7 @@
 package com.example.sb_korea.controller;
 
+import com.example.sb_korea.vo.UserDTO;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -123,5 +125,14 @@ public class MyController {
                 "\t\"quaCode\": \"V2G20211207095222591Q01\",\n" +
                 "\t\"isLicaiTask\": \"true\"\n" +
                 "}]";
+    }
+    /**
+     * 测试用户
+     * @param dto
+     * @return
+     */
+    @RequestMapping("/test")
+    public String test(@RequestBody UserDTO dto){
+        return "success";
     }
 }

@@ -1,5 +1,6 @@
 package com.example.sb_korea.vo;
 
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,14 +9,23 @@ import java.io.Serializable;
  * @author hao.wong
  * @date 2021/12/24
  */
+@Data
 public class UserDTO implements Serializable {
 
+    /**
+     * 名称
+     */
     private String name;
+    /**
+     * 年龄
+     */
     private String age;
 
     //yyyy-MM-dd HH:mm:ss
+    /**
+     * 时间yyyy-MM-dd HH:mm:ss
+     */
     private String time;
-
     private String before;
     private String after;
 
