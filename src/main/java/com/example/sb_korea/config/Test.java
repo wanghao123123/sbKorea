@@ -1,18 +1,18 @@
 package com.example.sb_korea.config;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.core.thread.ExecutorBuilder;
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.cron.CronUtil;
+import com.example.sb_korea.service.MyCallable;
 import com.example.sb_korea.utils.JSONUtils;
-import javafx.util.Pair;
+import com.example.sb_korea.utils.ThreadPoolUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DateFormat;
-import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.concurrent.*;
 
 /**
  * @author hao.wong
@@ -23,15 +23,9 @@ public class Test {
     public static final DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter YYYY_MM = DateTimeFormatter.ofPattern("yyyy-MM");
 
-    public static void main(String[] args) {
-        LocalDate parse = LocalDate.parse("2012-12-01", YYYY_MM_DD);
-        LocalDate localDate = parse.plusMonths(1);
-        LocalDate of = LocalDate.of(localDate.getYear(), localDate.getMonth(), 1);
-        System.err.println(of.format(YYYY_MM));
-        JSONObject.toJSONString(null);
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        ROUND_HALF_UP
         BigDecimal bigDecimal = new BigDecimal("998").divide(new BigDecimal("3"),0, RoundingMode.CEILING);
-
         System.err.println(bigDecimal);
 
         String json="{\n" +
@@ -43,11 +37,24 @@ public class Test {
                 "        }\n" +
                 "    }\n" +
                 "}";
-
-
-        System.err.println();
-
         Integer parse1 = JSONUtils.parse("a.b.c.d", json, Integer.class);
+
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        try {
+            Future submit = executorService.submit(new MyCallable(new HashMap<>()));
+            Integer o = (Integer) submit.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        CronUtil.schedule("0 0/1 * * * ?", (Runnable) ()->{
+            System.err.println(1);
+        });
+
+
+        new ThreadPoolExecutor(1,1,1,TimeUnit.MINUTES,
+                new LinkedBlockingDeque<>(100),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
+
 //        System.err.println();
 
     }

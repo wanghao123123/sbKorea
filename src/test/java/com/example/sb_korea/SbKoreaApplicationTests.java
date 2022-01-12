@@ -2,6 +2,8 @@ package com.example.sb_korea;
 
 import com.alibaba.fastjson.JSON;
 import com.example.sb_korea.mapper.UserMapper;
+import com.example.sb_korea.transaction.TransactionApi;
+import com.example.sb_korea.transaction.TransactionApiImpl;
 import com.example.sb_korea.utils.BeanUtil;
 import com.example.sb_korea.utils.SpringContextUtils;
 import com.example.sb_korea.vo.UserDTO;
@@ -22,14 +24,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerMapping;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -131,7 +131,25 @@ class SbKoreaApplicationTests {
 
     @Test
     public void test(){
-        SpringContextUtils springContextUtils = SpringContextUtils.getBean(SpringContextUtils.class);
+        Map<String, Object> beansWithAnnotation = SpringContextUtils.getApplicationContext().getBeansWithAnnotation(RestController.class);
+        System.err.println();
+    }
+
+    @Test
+    public void test2(){
+        int[] i1={1,2,3,4,5};
+        int[] i2={6,7,8,9,10};
+
+        int[] i3=new int[10];
+
+        System.arraycopy(i1,0,i3,0,i1.length);
+        System.arraycopy(i2,0,i3,i1.length,i2.length);
+
+
+        new TransactionApiImpl().execute(result->{
+            return null;
+        });
+
         System.err.println();
     }
 
