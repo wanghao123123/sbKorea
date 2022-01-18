@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -161,17 +162,11 @@ class SbKoreaApplicationTests {
 
     @Test
     public void transaction() {
-        AtomicInteger integer =new AtomicInteger(1);
-        new TransactionApiImpl().execute(result -> {
-            integer.set(10);
-            try {
-                throw new Exception("111");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        });
-        System.err.println(integer.get());
+        //已兑换挂件
+//        String exchangedStr = api.getKeyValueApi().get(PlantKeyFactory.pendantUserExchanged(userId));
+        String exchangedStr="";
+        boolean contains = Arrays.asList(exchangedStr.split(",")).contains("1");
+        System.err.println(contains);
     }
 
 }
