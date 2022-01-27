@@ -164,9 +164,10 @@ class SbKoreaApplicationTests {
     public void transaction() {
         //已兑换挂件
 //        String exchangedStr = api.getKeyValueApi().get(PlantKeyFactory.pendantUserExchanged(userId));
-        String exchangedStr="";
+        String exchangedStr = "";
         boolean contains = Arrays.asList(exchangedStr.split(",")).contains("1");
         System.err.println(contains);
     }
+
 
 }
