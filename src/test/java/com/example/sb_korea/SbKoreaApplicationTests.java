@@ -140,11 +140,6 @@ class SbKoreaApplicationTests {
 
     }
 
-    @Test
-    public void test() {
-        Map<String, Object> beansWithAnnotation = SpringContextUtils.getApplicationContext().getBeansWithAnnotation(RestController.class);
-        System.err.println();
-    }
 
     @Test
     public void test2() {
